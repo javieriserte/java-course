@@ -105,22 +105,6 @@ public class Range {
 		
 	}
 	
-	public int compareLowerBounds(Range otherRange) {
-		
-		int diff = this.getLowerBound().compareTo(otherRange.getLowerBound());
-		
-		if (diff!=0) {
-			return diff;
-		} else {
-			
-			int tl = this.isLowerClosed()?0:1;
-			int ol = otherRange.isLowerClosed()?0:1;
-			return tl-ol;
-		}
-		
-		
-	}
-
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

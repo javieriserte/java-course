@@ -128,22 +128,6 @@ public class Range<K extends Comparable<K>> {
 		
 	}
 	
-	public int compareLowerBounds(Range<K> otherRange) {
-		
-		int diff = this.getLowerBound().compareTo(otherRange.getLowerBound());
-		
-		if (diff!=0) {
-			return diff;
-		} else {
-			
-			int tl = this.isLowerClosed()?0:1;
-			int ol = otherRange.isLowerClosed()?0:1;
-			return tl-ol;
-		}
-		
-		
-	}
-
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
