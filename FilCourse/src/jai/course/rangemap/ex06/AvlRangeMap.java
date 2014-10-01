@@ -3,22 +3,43 @@ package jai.course.rangemap.ex06;
 import java.util.HashSet;
 import java.util.Set;
 
-
-// Check code:
-// http://code.antonio081014.com/2013/07/generic-avl-tree-implementation-in-java.html
+/**
+ * Implementation of RangeMap interface using AVL trees.
+ * Code was based in generic AVL tree implementation found at:
+ * http://code.antonio081014.com/2013/07/generic-avl-tree-implementation-in-java.html
+ * 
+ * @author Javier
+ *
+ * @param <K>
+ * @param <V>
+ */
 public class AvlRangeMap<K extends Comparable<K>,V> implements RangeMap<K,V>{
+	
+	////////////////////////////////////////////////////////////////////////////
+	// Instance variables
 	private Set<V> values;
+	// A set of values, for quick retrieval of values if required.
 	private RangeMapNode<K, V> root;
+	// The root a the AVL tree.
 	private LowerBoundRangeComparator<K> lowerBoundComparator;
-
+	// A Comparator to order Ranges in the AVL tree
+	////////////////////////////////////////////////////////////////////////////
+	
+	////////////////////////////////////////////////////////////////////////////
+	// Constructor
 	public AvlRangeMap() {
 		super();
 		this.values  = new HashSet<V>();
 		this.root=null;
 		this.setLowerBoundComparator(new LowerBoundRangeComparator<K>());
 	}
-	
+	////////////////////////////////////////////////////////////////////////////
 
+	////////////////////////////////////////////////////////////////////////////
+	// Public interface
+	/**
+	 * Adds a new range to the map with its corresponding return value.
+	 */
 	public V put(Range<K> key, V value) {
 		root = put(root, key, value);
 		switch (balanceNumber(root)) {
@@ -33,34 +54,10 @@ public class AvlRangeMap<K extends Comparable<K>,V> implements RangeMap<K,V>{
 		}
 		return value;
 	}
-
-	public RangeMapNode<K,V> put(RangeMapNode<K,V> node, Range<K> key, V value) {
-		if (node == null) {
-			this.values.add(value);
-			return new RangeMapNode<K,V>(key,value);
-		}
-
-		int lowerBoundComparisonResult = this.getLowerBoundComparator().compare(node.getKey(), key);
-		if (lowerBoundComparisonResult > 0) {
-			node = new RangeMapNode<K,V>(node.getKey(), node.getValue(), put(node.getLeft(), key, value), node.getRight());
-		} else if (lowerBoundComparisonResult < 0) {
-			node = new RangeMapNode<K,V>(node.getKey(), node.getValue(), node.getLeft(), put( node.getRight(), key, value));
-		} 
-		// After insert the new node, check and rebalance the current node if
-		// necessary.
-		switch (balanceNumber(node)) {
-		case 1:
-			node = rotateLeft(node);
-			break;
-		case -1:
-			node = rotateRight(node);
-			break;
-		default:
-			return node;
-		}
-		return node;
-	}
-
+	
+	/**
+	 * Retrieves the value associated with a given key.
+	 */
 	public V get(K key) {
 		RangeMapNode<K,V> local = root;
 		while (local != null) {
@@ -74,6 +71,94 @@ public class AvlRangeMap<K extends Comparable<K>,V> implements RangeMap<K,V>{
 		return null;
 	}
 
+	/**
+	 * Gets the depth of the AVLtree
+	 * @return
+	 */
+	public int getDepth() {
+
+		return this.depth(root);
+
+	}
+
+	/**
+	 * Gets the number of nodes of the tree.
+	 * @return
+	 */
+	public int size() {
+		if (this.root!=null){
+			return this.root.size();
+		} else {
+			return 0;
+		}
+	}
+
+	/**
+	 * Check if the map is empty.
+	 * @return
+	 */
+	public boolean isEmpty() {
+		return this.root==null;
+	}
+
+	/**
+	 * Check if a given value is returned by any range in the map.
+	 * @param value
+	 * @return
+	 */
+	public boolean containsValue(V value) {
+		return this.values.contains(value);
+	}
+
+	/**
+	 * Removes all data in the map.
+	 */
+	public void clear() {
+		this.values.clear();
+		this.root=null;
+	}
+
+	/**
+	 * Retrieves a set of all ranges in the map.
+	 * @return
+	 */
+	public Set<Range<K>> keyRangeSet() {
+		Set<Range<K>> rangeSet = new HashSet<Range<K>>();
+		this.root.collectRanges(rangeSet);
+		return rangeSet;
+	}
+
+	/**
+	 * Retrieves all values in the map.
+	 * @return
+	 */
+	public Set<V> values() {
+		return this.values;
+	}
+	
+	/**
+	 * String representation of the map.
+	 */
+	@Override
+	public String toString () {
+
+		return this.root.toString();
+		
+	}
+	
+	/**
+	 * String representation of the map as a tree.
+	 * @return
+	 */
+	public String treeString () {
+		System.out.println(this.depth(root));
+		return this.root.treeString();
+	}
+	// End of public interface
+	////////////////////////////////////////////////////////////////////////////
+
+	////////////////////////////////////////////////////////////////////////////
+	// Private methods
 	private int depth(RangeMapNode<K,V> node) {
 		if (node == null) {
 			return 0;
@@ -81,13 +166,7 @@ public class AvlRangeMap<K extends Comparable<K>,V> implements RangeMap<K,V>{
 			return node.getDepth();
 		}
 	}
-
-	public int getDepth() {
-
-		return this.depth(root);
-
-	}
-
+	
 	private int balanceNumber(RangeMapNode<K,V> node) {
 		int L = depth(node.getLeft());
 		int R = depth(node.getRight());
@@ -99,6 +178,13 @@ public class AvlRangeMap<K extends Comparable<K>,V> implements RangeMap<K,V>{
 	}
 
 	private RangeMapNode<K,V> rotateLeft(RangeMapNode<K,V> node) {
+		/*
+		 *       q             p
+		 *      / \           / \
+		 *     c   p   ==>   q   b 
+		 *        / \       / \
+		 *       a   b     c   a
+		 */
 		RangeMapNode<K,V> q = node;
 		RangeMapNode<K,V> p = q.getRight();
 		RangeMapNode<K,V> c = q.getLeft();
@@ -110,6 +196,13 @@ public class AvlRangeMap<K extends Comparable<K>,V> implements RangeMap<K,V>{
 	}
 
 	private RangeMapNode<K,V> rotateRight(RangeMapNode<K,V> node) {
+		/*
+		 *       q             p
+		 *      / \           / \
+		 *     p   c   ==>   a   q 
+		 *    / \               / \
+		 *   a   b             b   c 
+		 */
 		RangeMapNode<K,V> q = node;
 		RangeMapNode<K,V> p = q.getLeft();
 		RangeMapNode<K,V> c = q.getRight();
@@ -119,58 +212,49 @@ public class AvlRangeMap<K extends Comparable<K>,V> implements RangeMap<K,V>{
 		p = new RangeMapNode<K,V>(p.getKey(), p.getValue(), a, q);
 		return p;
 	}
-
-
-	public int size() {
-		if (this.root!=null){
-			return this.root.size();
-		} else {
-			return 0;
-		}
-	}
-
-	public boolean isEmpty() {
-		return this.root==null;
-	}
-
-	public boolean containsValue(V value) {
-		return this.values.contains(value);
-	}
-
-	public void clear() {
-		this.values.clear();
-		this.root=null;
-	}
-
-	public Set<Range<K>> keyRangeSet() {
-		Set<Range<K>> rangeSet = new HashSet<Range<K>>();
-		this.root.collectRanges(rangeSet);
-		return rangeSet;
-	}
-
-	public Set<V> values() {
-		return this.values;
-	}
-	@Override
-	public String toString () {
-
-		return this.root.toString();
-		
-	}
 	
-	public String treeString () {
-		System.out.println(this.depth(root));
-		return this.root.treeString();
-	}
-	
-	protected LowerBoundRangeComparator<K> getLowerBoundComparator() {
+	private LowerBoundRangeComparator<K> getLowerBoundComparator() {
 		return lowerBoundComparator;
 	}
 
-
-	protected void setLowerBoundComparator(
+	private void setLowerBoundComparator(
 			LowerBoundRangeComparator<K> lowerBoundComparator) {
 		this.lowerBoundComparator = lowerBoundComparator;
 	}
 	
+	private RangeMapNode<K,V> put(RangeMapNode<K,V> node, Range<K> key, V value) {
+		
+		if (node == null) {
+			this.values.add(value);
+			return new RangeMapNode<K,V>(key,value);
+		}
+
+		int lowerBoundComparisonResult = this.getLowerBoundComparator().compare(node.getKey(), key);
+		
+		if (lowerBoundComparisonResult > 0) {
+			// Insert the new node on the left branch. 
+			node = new RangeMapNode<K,V>(node.getKey(), node.getValue(), put(node.getLeft(), key, value), node.getRight());
+		} else if (lowerBoundComparisonResult < 0) {
+			// Insert the new node on the right branch. 
+			node = new RangeMapNode<K,V>(node.getKey(), node.getValue(), node.getLeft(), put( node.getRight(), key, value));
+		} 
+		// After insert the new node, check and rebalance the current node if
+		// necessary.
+		switch (this.balanceNumber(node)) {
+		case 1:
+			// Rebalance 
+			node = this.rotateLeft(node);
+			break;
+		case -1:
+			// Rebalance
+			node = this.rotateRight(node);
+			break;
+		default:
+			// No rebalance required
+			return node;
+		}
+		return node;
+	}
+	////////////////////////////////////////////////////////////////////////////
+
 }

@@ -9,7 +9,7 @@ import java.util.Comparator;
  * state of the range is used. A closed bound is considered lower than an open bound.
  * @author Javier Iserte
  *
- * @param <K>
+ * @param <K> Any object the implements Comparable<K> interface.
  */
 public class LowerBoundRangeComparator <K extends Comparable<K>> implements Comparator<Range<K>> {
 
