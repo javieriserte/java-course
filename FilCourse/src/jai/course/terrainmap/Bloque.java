@@ -1,18 +1,17 @@
 package jai.course.terrainmap;
 
-
-
 public class Bloque extends Region {
 	
 	
-	///////////////////////////////
+	////////////////////////////////////////////////////////////////////////////
 	// Instance Variables
 	private Region arribaDerecha;
 	private Region arribaIzquierda;
 	private Region abajoDerecha;
 	private Region abajoIzquierda;
+	////////////////////////////////////////////////////////////////////////////
 	
-	///////////////////////////////
+	////////////////////////////////////////////////////////////////////////////
 	// Constructor
 	public Bloque(Region arribaDerecha, Region arribaIzquierda,
 			Region abajoDerecha, Region abajoIzquierda) {
@@ -23,8 +22,9 @@ public class Bloque extends Region {
 		this.setAbajoIzquierda(abajoIzquierda);
 		
 	}
+	////////////////////////////////////////////////////////////////////////////
 	
-	////////////////////////////////////
+	////////////////////////////////////////////////////////////////////////////
 	// Public interface
 	@Override
 	public Terreno getTerreno() {
@@ -67,8 +67,11 @@ public class Bloque extends Region {
 		
 	}
 	
-	///////////////////////////////
-	// Getters and Setters
+	@Override
+	public boolean isBlock() {
+		return true;
+	}
+	
 	public void setAbajoIzquierda(Region abajoIzquierda) {
 		this.abajoIzquierda = abajoIzquierda;
 	}
@@ -93,9 +96,7 @@ public class Bloque extends Region {
 	public Region getArribaDerecha() {
 		return arribaDerecha;
 	}
-
-
-
-
+	// End of public interface
+	////////////////////////////////////////////////////////////////////////////
 	
 }

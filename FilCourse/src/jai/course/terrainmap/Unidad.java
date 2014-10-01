@@ -41,5 +41,11 @@ public class Unidad extends Region {
 		return 1;
 	}
 
+	@Override
+	public boolean isBlock() {
+
+		return false;
+	}
+
 
 }

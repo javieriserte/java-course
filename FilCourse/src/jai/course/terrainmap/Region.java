@@ -8,4 +8,6 @@ public abstract class Region {
 	
 	public abstract int countElements();
 	
+	public abstract boolean isBlock();
+	
 }

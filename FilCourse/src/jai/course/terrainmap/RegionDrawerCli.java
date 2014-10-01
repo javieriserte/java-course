@@ -18,18 +18,42 @@ public class RegionDrawerCli {
 		Path outfile2 = Paths.get(args[1]);
 
 		Path datafile = Paths.get(args[2]);
+		
+		RegionDrawer drawer = args[3].equals("cheap")?new RegionDrawerCheap():new RegionDrawerExpensive();
 
 		Region region;
 		try {
+			long initial = System.currentTimeMillis();
+			
 			region = RegionFactory.fromReader(new FileReader(datafile.toFile()));
-
-			exportImage(outfile1, region);
+			
+			long afterReading = System.currentTimeMillis();
+			
+			System.out.println("Time spent reading input file: " + (afterReading - initial));
+			
+			exportImage(outfile1, region, drawer);
+			
+			long afterExport = System.currentTimeMillis();
+			
+			System.out.println("Time spent exporting image: " + (afterExport - afterReading));
 			
 			System.out.println("Initial number of elements: " + region.countElements());
 
+			long counting = System.currentTimeMillis();
+			
+			System.out.println("Time spent counting elements image: " + (counting - afterExport));
+
 			region = region.simplificar();
 
-			exportImage(outfile2, region);
+			long simplify = System.currentTimeMillis();
+			
+			System.out.println("Time spent simplifying data: " + (simplify - counting));
+
+			exportImage(outfile2, region, drawer);
+
+			long secondExport = System.currentTimeMillis();
+			
+			System.out.println("Time spent in second export: " + (secondExport - simplify));
 			
 			System.out.println("Final number of elements: " + region.countElements());
 
@@ -42,9 +66,9 @@ public class RegionDrawerCli {
 
 	}
 
-	private static void exportImage(Path outfile, Region region) {
+	private static void exportImage(Path outfile, Region region, RegionDrawer drawer) {
 			
-		BufferedImage image = (new RegionDrawer()).draw(region, 3072);
+		BufferedImage image = drawer.draw(region, 3072);
 
 		try {
 			ImageIO.write(image, "PNG", outfile.toFile());
