@@ -35,4 +35,11 @@ public class Unidad extends Region {
 		return this;
 		
 	}
+	
+	@Override
+	public int countElements() {
+		return 1;
+	}
+
+
 }

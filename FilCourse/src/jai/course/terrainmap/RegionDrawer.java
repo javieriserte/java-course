@@ -29,6 +29,10 @@ public class RegionDrawer {
 			
 			g.fillRect(off_set_x, off_set_y, width, width);
 			
+			g.setColor(Color.red);
+			
+			g.drawRect(off_set_x, off_set_y, width, width);
+			
 		} else {
 			
 			Bloque bloque = (Bloque) region;

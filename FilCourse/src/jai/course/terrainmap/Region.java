@@ -6,4 +6,6 @@ public abstract class Region {
 	
 	public abstract Region simplificar();
 	
+	public abstract int countElements();
+	
 }

@@ -45,11 +45,26 @@ public class Bloque extends Region {
 		Terreno actual = this.getTerreno();
 		switch (actual) {
 		case Mezclado:
-			return this;
+			Region arribaDerecha = this.getArribaDerecha().simplificar();
+			Region arribaIzquierda= this.getArribaIzquierda().simplificar();
+			Region abajoDerecha = this.getAbajoDerecha().simplificar();
+			Region abajoIzquierda= this.getAbajoIzquierda().simplificar();
+			return new Bloque(arribaDerecha, arribaIzquierda, abajoDerecha, abajoIzquierda);
 		default:
 			return new Unidad(actual);
 		}
 
+	}
+	
+	@Override
+	public int countElements() {
+		
+		return this.getArribaIzquierda().countElements() +
+			   this.getArribaDerecha().countElements()   +
+			   this.getAbajoIzquierda().countElements()  +
+			   this.getAbajoDerecha().countElements() + 1;
+		
+		
 	}
 	
 	///////////////////////////////
@@ -78,6 +93,8 @@ public class Bloque extends Region {
 	public Region getArribaDerecha() {
 		return arribaDerecha;
 	}
+
+
 
 
 	
