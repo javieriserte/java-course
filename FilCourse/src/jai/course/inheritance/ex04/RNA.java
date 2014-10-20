@@ -8,19 +8,16 @@ package jai.course.inheritance.ex04;
  */
 public class RNA extends NucAcid{
 	
+
 	////////////////////////////////////////////////////////////////////////////
 	// Constructor
-	/**
-	 * Creates a new RNA molecule.
-	 * @param sequence is a String representing the molecule's sequence.
-	 */
 	RNA (String sequence) {
 		this.setSequence(sequence);
 	}
 	////////////////////////////////////////////////////////////////////////////
 	
 	////////////////////////////////////////////////////////////////////////////
-	// Protected and private methods
+	// Methods
 	protected char getCompCharForAdenine() {
 		return 'U';
 	}
