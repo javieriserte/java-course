@@ -19,26 +19,19 @@ class DNA extends NucAcid {
 	
 	////////////////////////////////////////////////////////////////////////////
 	// Methods
-	@Override
-	NucAcid seqComp() {
-		
+	DNA seqComp() {
 		String newSeq = this.getComplementarySequence();
-
 		DNA result = new DNA(String.valueOf(newSeq));
 		return result;
 	}
 	
-	
-	RNA transcript(){
+	RNA transcribe(){
 		String newSeq = this.getSequence().replace('T', 'U').replace('t', 'u');
 		return new RNA(newSeq);
 	}
-
-	@Override
-	boolean isDNA() {
-		return true;
-	}
-
+    
+	
+	
 	@Override
 	char getCompCharForAdenine() {
 		return 'T';

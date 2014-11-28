@@ -8,21 +8,25 @@ package jai.course.inheritance.ex04;
  */
 public class RNA extends NucAcid{
 	
-
 	////////////////////////////////////////////////////////////////////////////
 	// Constructor
-	RNA (String sequence) {
+	public RNA (String sequence) {
 		this.setSequence(sequence);
 	}
 	////////////////////////////////////////////////////////////////////////////
 	
 	////////////////////////////////////////////////////////////////////////////
 	// Methods
+	public RNA seqComp() {
+		String newSeq = this.getComplementarySequence();
+		RNA result = new RNA(String.valueOf(newSeq));
+		return result;
+	}
+
+	@Override
 	protected char getCompCharForAdenine() {
 		return 'U';
 	}
-	// End of methods
 	////////////////////////////////////////////////////////////////////////////
-
 
 }

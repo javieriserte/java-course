@@ -57,7 +57,7 @@ class DNA extends NucAcid {
 	}
 	
 	
-	RNA transcript(){
+	RNA transcribe(){
 		String newSeq = this.getSequence().replace('T', 'U').replace('t', 'u');
 		return new RNA(newSeq);
 	}

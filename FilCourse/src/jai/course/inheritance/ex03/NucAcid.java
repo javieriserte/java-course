@@ -23,10 +23,6 @@ public abstract class NucAcid {
 	
 	////////////////////////////////////////////////////////////////////////////
 	// Methods
-	abstract NucAcid seqComp();
-	
-	abstract boolean isDNA();
-	
 	abstract char getCompCharForAdenine();
 	
 	int length() {
@@ -35,30 +31,11 @@ public abstract class NucAcid {
 
 	void setSequence(String sequence) {
 		this.sequence=sequence;
-		
 	}
-
+	
 	String getSequence() {
 		return this.sequence;
 	}
-	
-	DNA asDNA() {
-		if (this.isDNA()) {
-			return (DNA) this;
-		} else {
-			return null;
-		}
-	}
-	
-	
-	RNA asRNA(){
-		if (this.isDNA()) {
-			return null;
-		} else {
-			return (RNA) this;
-		}
-	}
-	
 	
 	String getComplementarySequence() {
 		

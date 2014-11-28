@@ -23,46 +23,22 @@ public abstract class NucAcid {
 	
 	////////////////////////////////////////////////////////////////////////////
 	// Methods
-	abstract char getCompCharForAdenine() ;
+	protected abstract char getCompCharForAdenine();
 	
-	DNA getCompDNA(){
-
-		DNA result = new DNA("");
-
-		String newSeq = this.getComplementarySequence(result);
-		
-		result.setSequence(newSeq);
-
-		return result;
-		
-	}
-	
-	RNA getCompRNA() {
-		
-		RNA result = new RNA("");
-		
-		String newSeq = this.getComplementarySequence(result);
-		
-		result.setSequence(newSeq);
-
-		return result;
-	}
-	
-	
-	int length() {
+	public int length() {
 		return this.getSequence().length();
 	}
 
-	void setSequence(String sequence) {
+	protected void setSequence(String sequence) {
 		this.sequence=sequence;
 		
 	}
-
-	String getSequence() {
+	
+	public String getSequence() {
 		return this.sequence;
 	}
 	
-	String getComplementarySequence(NucAcid target) {
+	protected String getComplementarySequence() {
 		
 		int length = this.length();
 		char[] newSeq = new char[length];
@@ -70,7 +46,7 @@ public abstract class NucAcid {
 			char currentChar = this.getSequence().charAt(i-1);
 			switch (currentChar) {
 			case 'a': case 'A':
-				newSeq[length-i] = target.getCompCharForAdenine();
+				newSeq[length-i] = this.getCompCharForAdenine();
 				break;
 
 			case 'c': case 'C':
@@ -98,7 +74,6 @@ public abstract class NucAcid {
 		return sequence;
 		
 	}
-
 	// End of Methods
 	////////////////////////////////////////////////////////////////////////////
 

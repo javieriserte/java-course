@@ -13,25 +13,20 @@ public class RNA extends NucAcid{
 	RNA (String sequence) {
 		this.setSequence(sequence);
 	}
-
 	////////////////////////////////////////////////////////////////////////////
 	
 	////////////////////////////////////////////////////////////////////////////
 	// Methods
-	NucAcid seqComp() {
+	RNA seqComp() {
 		String newSeq = this.getComplementarySequence();
-		DNA result = new DNA(String.valueOf(newSeq));
+		RNA result = new RNA(String.valueOf(newSeq));
 		return result;
 	}
 
 	@Override
-	boolean isDNA() {
-		return false;
-	}
-	
-	@Override
 	char getCompCharForAdenine() {
 		return 'U';
 	}
+	////////////////////////////////////////////////////////////////////////////
 
 }
