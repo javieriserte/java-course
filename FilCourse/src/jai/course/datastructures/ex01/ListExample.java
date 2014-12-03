@@ -9,82 +9,60 @@ public class ListExample {
 	
 	public static void main(String ... args) {
 		
-		int[] numbers = new int[100000];
-		
-		for(int i = 0; i<numbers.length ; i++) {
-			
-			numbers[i] = (int) (Math.random() * 1000000) + 1; 
-			
-		}
-		
 		List<Integer> l1 = new ArrayList<>();
 		List<Integer> l2 = new LinkedList<>();
 		List<Integer> l3 = new Vector<>();
 		
-		////////////////////////////////////////////////////////////////////////
-		// Test add
+		l1 = createRandomArray(l1, 5000, 1000000);
+		l2 = createRandomArray(l2, 5000, 1000000);
+		l3 = createRandomArray(l3, 5000, 1000000);
 		
-		long t0 = System.currentTimeMillis();
+		List<List<Integer>> lists = new ArrayList<>();
 		
-		for (int integer : numbers) {
-			
-			l1.add(integer);
-			
-		}
-		
-		long t1 = System.currentTimeMillis();
-		
-		for (int integer : numbers) {
-			
-			l2.add(integer);
-			
-		}
-		
-		long t2 = System.currentTimeMillis();
-		
-		for (int integer : numbers) {
-			
-			l3.add(integer);
-			
-		}
-		
-		long t3 = System.currentTimeMillis();
-		
-		System.out.println("ArrayList  : "+(t1-t0)+" ms.");
-		System.out.println("LinkedList : "+(t2-t1)+" ms.");
-		System.out.println("Vector     : "+(t3-t2)+" ms.");
-		
-		long t4 = System.currentTimeMillis();
-		int counts1 = 0;
-		for (int i = 0; i < 10000; i++) {
-			
-			counts1 += l1.contains(i)?1:0;
-			
-		}
-		
-		long t5 = System.currentTimeMillis();
-		int counts2 = 0;
-		for (int i = 0; i < 10000; i++) {
-			
-			counts2 += l2.contains(i)?1:0;
-			
-		}
-		long t6 = System.currentTimeMillis();
-		int counts3 = 0;
-		for (int i = 0; i < 10000; i++) {
-			
-			counts3 += l3.contains(i)?1:0;
-			
-		}
-		long t7 = System.currentTimeMillis();
-		
-		System.out.println("ArrayList  : counted "+ counts1 + " elements in " +(t5-t4)+" ms.");
-		System.out.println("LinkedList : counted "+ counts2 + " elements in " +(t6-t5)+" ms.");
-		System.out.println("Vector     : counted "+ counts3 + " elements in " +(t7-t6)+" ms.");
-		
-		////////////////////////////////////////////////////////////////////////
+		lists.add(l1);
+		lists.add(l2);
+		lists.add(l3);
+
+		compareAllLists(lists);
 		
 		
 	}
+
+	private static List<Integer> createRandomArray(List<Integer> emptyList, int length, int maxValue) {
+		
+		for(int i = 0; i<length ; i++) {
+			
+		   emptyList.add((int) (Math.random() * maxValue) + 1); 
+			
+		}
+		return emptyList;
+	}
+	
+	private static int compareTwoLists(List<Integer> first, List<Integer> second) {
+		int count = 0;
+		for (int i : first) {
+			
+			count += second.contains(i)?1:0;
+			
+		}
+		return count;
+	}
+	
+	private static void compareAllLists(List<List<Integer>> lists) {
+	
+		for(int i=0; i<lists.size()-1; i++) {
+			
+			for(int j=i+1; j<lists.size(); j++) {
+				
+				int count = compareTwoLists(lists.get(i), lists.get(j));
+				
+				System.out.println("List "+i+" vs "+" list " + j + " : " + count );
+				
+			}
+			
+		}
+		
+	}
+	
 
 }
