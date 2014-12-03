@@ -2,71 +2,59 @@ package jai.course.datastructures.ex01;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
+import java.util.Set;
 
 public class MapExample {
 
 	public static void main (String ... args) {
+		Map<Integer,Integer> map;
+		Map<Integer,Integer> secondMap = new HashMap<Integer, Integer>();
+		for (int i = 0; i<100; i++) {
+		  map = new HashMap<>();
+		  fillMapWithRandomNumbers(map, 1000000, 1000000);
+		  Integer maxKey = getMostFrequentKey(map);
+		  System.out.println("Maximum Key: "+maxKey+" | Frecuency: "+map.get(maxKey));
+		  secondMap = updateKeyCount(secondMap,map.get(maxKey));
+		}
+		for (Integer frequency : secondMap.keySet()) {
+			System.out.println("Frequency :" + frequency + " | Conteo " + secondMap.get(frequency));
+		}
+	}
+	
+	public static Map<Integer,Integer> fillMapWithRandomNumbers(Map<Integer,Integer> map, int numbers, int maximumValue) {
 		
-		int[] numbers = new int[100000];
-		
-		for(int i = 0; i<numbers.length ; i++) {
+		for (int i = 0; i<numbers; i++) {
 			
-			numbers[i] = (int) (Math.random() * 1000000) + 1; 
+			Integer currentValue = (int) (Math.random()*maximumValue+1);
 			
+			updateKeyCount(map, currentValue);
 		}
 		
+		return map;
 		
-		Map<Integer,Integer> s1 = new HashMap<>();
-		Map<Integer,Integer> s2 = new TreeMap<>();
-		
+	}
 
-		
-		////////////////////////////////////////////////////////////////////////
-		// Test add
-		
-		long t0 = System.currentTimeMillis();
-		
-		for (int integer : numbers) {
-			
-			s1.put(integer,integer);
-			
+	private static Map<Integer,Integer> updateKeyCount(Map<Integer, Integer> map, Integer key) {
+		if (map.containsKey(key)) {
+			map.put(key, map.get(key)+1);
+		} else {
+			map.put(key, 1);
 		}
-		
-		long t1 = System.currentTimeMillis();
-		
-		for (int integer : numbers) {
-			
-			s2.put(integer,integer);
-			
+		return map;
+	}
+	
+	public static Integer getMostFrequentKey(Map<Integer,Integer> map) {
+		Set<Integer> keySet = map.keySet();
+		Integer maxValue=0;
+		Integer maxKey = null;
+		for (Integer currentKey : keySet) {
+			Integer currentValue = map.get(currentKey);
+			if (currentValue > maxValue) {
+				maxValue = currentValue;
+				maxKey = currentKey;
+			}
 		}
-
-		long t2 = System.currentTimeMillis();
-		
-		System.out.println("HashSet  : "+(t1-t0)+" ms.");
-		System.out.println("TreeSet : "+(t2-t1)+" ms.");
-
-		
-		long t3 = System.currentTimeMillis();
-		int counts1 = 0;
-		for (int i = 0; i < 1000000; i++) {
-			
-			counts1 += s1.containsKey(i)?1:0;
-			
-		}
-		long t4 = System.currentTimeMillis();
-		int counts2 = 0;
-		for (int i = 0; i < 1000000; i++) {
-			
-			counts2 += s2.containsKey(i)?1:0;
-			
-		}
-		long t5 = System.currentTimeMillis();
-		
-		System.out.println("HashSet  : counted "+ counts1 + " elements in " +(t4-t3)+" ms.");
-		System.out.println("TreeSet  : counted "+ counts2 + " elements in " +(t5-t4)+" ms.");
-
-		
+		return maxKey;
 	}
 	
 }

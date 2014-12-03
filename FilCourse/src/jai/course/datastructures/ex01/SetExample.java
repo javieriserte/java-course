@@ -8,63 +8,42 @@ public class SetExample {
 	
 	public static void main (String ... args) {
 		
-		int[] numbers = new int[100000];
-		
-		for(int i = 0; i<numbers.length ; i++) {
-			
-			numbers[i] = (int) (Math.random() * 1000000) + 1; 
-			
-		}
-		
-		
 		Set<Integer> s1 = new HashSet<>();
 		Set<Integer> s2 = new TreeSet<>();
+		Set<Integer> s3 = new HashSet<>();
+		Set<Integer> s4 = new TreeSet<>();
 		
-		////////////////////////////////////////////////////////////////////////
-		// Test add
+		s1 = fillSetWithRandomNumbers(s1,1000000,1000000);
+		s2 = fillSetWithRandomNumbers(s2,1000000,1000000);
+		s3 = fillSetWithRandomNumbers(s3,1000000,1000000);
+		s4 = fillSetWithRandomNumbers(s4,1000000,1000000);
 		
-		long t0 = System.currentTimeMillis();
-		
-		for (int integer : numbers) {
-			
-			s1.add(integer);
-			
+		compareTwoSets(s1,s3);
+		compareTwoSets(s1,s4);
+		compareTwoSets(s2,s3);
+		compareTwoSets(s2,s4);
+	}
+	
+	public static Set<Integer> fillSetWithRandomNumbers(Set<Integer> set, int numbers, int maximumValue) {
+		long t0 = System.nanoTime();
+		for (int i=0; i< numbers; i++) {
+		  set.add((int) (Math.random() * maximumValue) + 1);
 		}
+		long t1 = System.nanoTime();
+		System.out.println("Set Adding: "+ set.getClass().getCanonicalName()+ " - "+(t1-t0)/1000000+" ms.");
+		return set;
 		
-		long t1 = System.currentTimeMillis();
-		
-		for (int integer : numbers) {
-			
-			s2.add(integer);
-			
+	}
+	
+	public static int compareTwoSets(Set<Integer> first, Set<Integer> second) {
+		long t0 = System.nanoTime();
+		int counter=0;
+		for (Integer i: first) {
+			counter+=second.contains(i)?1:0;
 		}
-
-		long t2 = System.currentTimeMillis();
-		
-		System.out.println("HashSet  : "+(t1-t0)+" ms.");
-		System.out.println("TreeSet : "+(t2-t1)+" ms.");
-
-		
-		long t3 = System.currentTimeMillis();
-		int counts1 = 0;
-		for (int i = 0; i < 1000000; i++) {
-			
-			counts1 += s1.contains(i)?1:0;
-			
-		}
-		long t4 = System.currentTimeMillis();
-		int counts2 = 0;
-		for (int i = 0; i < 1000000; i++) {
-			
-			counts2 += s2.contains(i)?1:0;
-			
-		}
-		long t5 = System.currentTimeMillis();
-		
-		System.out.println("HashSet  : counted "+ counts1 + " elements in " +(t4-t3)+" ms.");
-		System.out.println("TreeSet  : counted "+ counts2 + " elements in " +(t5-t4)+" ms.");
-
-		
+		long t1 = System.nanoTime();
+		System.out.println("Set contains: "+ first.getClass().getCanonicalName() + "/"+ second.getClass().getCanonicalName() + " - "+ (t1-t0)/1000000+" ms.");
+		return counter;
 	}
 
 }
