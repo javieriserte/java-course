@@ -1,4 +1,4 @@
-package jai.course.datastructures.ex01;
+package jai.course.datastructures.part3;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -28,9 +28,9 @@ public class HanoiClient {
 		Pattern restartPattern = Pattern.compile(MESSAGE_RESTART_REGEX);
 		
 		Map<String,BoardStacks> stackMap = new HashMap<>();
-		stackMap.put("L", BoardStacks.left);
-		stackMap.put("M", BoardStacks.middle);
-		stackMap.put("R", BoardStacks.right);
+		stackMap.put("L", BoardStacks.LEFT);
+		stackMap.put("M", BoardStacks.MIDDLE);
+		stackMap.put("R", BoardStacks.RIGHT);
 		
 		BoardGame board = null;
 		
@@ -40,7 +40,7 @@ public class HanoiClient {
 				
 				if (start) {
 					start =false;
-					board = BoardGame.createBoardGame(BoardStacks.left, BoardStacks.right, nRings);
+					board = BoardGame.createBoardGame(BoardStacks.LEFT, BoardStacks.RIGHT, nRings);
 					System.out.println("Board:");
 					System.err.println(board);
 				}
@@ -72,13 +72,13 @@ public class HanoiClient {
 					BoardResponse resp = board.move(stackMap.get(from), stackMap.get(to));
 					
 					switch (resp) {
-					case IlegalMove:
+					case ILLEGAL_MOVE:
 						System.out.println("Ilegal move");
 						break;
-					case ValidMode:
+					case VALID_MOVE:
 						System.out.println(board);
 						break;
-					case YouWin:
+					case YOU_WIN:
 						System.out.println(board);
 						System.out.println("You Did It! play again...");
 						start=true;

@@ -16,8 +16,8 @@ public class BoardGame {
 
 
 	////////////////////////////////////////////////////////////////////////////
-	// Constructor
-	public BoardGame(int numberOfRings, List<Ring> left, List<Ring> middle,
+	// Constructors
+	private BoardGame(int numberOfRings, List<Ring> left, List<Ring> middle,
 			List<Ring> right, BoardStacks ending) {
 		super();
 		this.setNumberOfRings(numberOfRings);
@@ -25,6 +25,9 @@ public class BoardGame {
 		this.setMiddle(middle);
 		this.setRight(right);
 		this.setEndingStack(ending);
+	}
+	private BoardGame(){
+		super();
 	}
 	////////////////////////////////////////////////////////////////////////////
 	
@@ -35,7 +38,7 @@ public class BoardGame {
 		Ring ring = this.getRingFrom(source); 
 		
 		if (ring == null) {
-			return BoardResponse.IlegalMove;
+			return BoardResponse.ILLEGAL_MOVE;
 			
 		}
 		
@@ -44,7 +47,7 @@ public class BoardGame {
 		if (!success) {
 			
 			this.putRingIn(source,ring);
-			return BoardResponse.IlegalMove;
+			return BoardResponse.ILLEGAL_MOVE;
 			
 		}
 		
@@ -52,11 +55,11 @@ public class BoardGame {
 		
 		if (win) {
 			
-			return BoardResponse.YouWin;
+			return BoardResponse.YOU_WIN;
 					
 		} else {
 			
-			return BoardResponse.ValidMode;
+			return BoardResponse.VALID_MOVE;
 			
 		}
 		
@@ -115,7 +118,7 @@ public class BoardGame {
 	// Private methods
 	private boolean checkWinnig() {
 		
-		int stackSize = this.getCurrentStack(this.getEndingStack()).size();
+		int stackSize = this.getStack(this.getEndingStack()).size();
 		int ringNumber = this.getNumberOfRings();
 		
 		System.out.println("stack size = "+stackSize+ "| number of rings in game = " + ringNumber + " | equals = " + (stackSize == ringNumber));
@@ -125,7 +128,7 @@ public class BoardGame {
 	
 	private boolean putRingIn(BoardStacks destination,Ring ring) {
 		
-		List<Ring> currentStack = getCurrentStack(destination);
+		List<Ring> currentStack = getStack(destination);
 		
 		if (currentStack.isEmpty()) {
 			
@@ -155,7 +158,7 @@ public class BoardGame {
 
 	private Ring getRingFrom(BoardStacks source) {
 
-		List<Ring> currentStack = getCurrentStack(source);
+		List<Ring> currentStack = getStack(source);
 		
 		if (currentStack != null) {
 			
@@ -168,14 +171,14 @@ public class BoardGame {
 		}
 	}
 
-	private List<Ring> getCurrentStack(BoardStacks source) {
-		List<Ring> currentStack = null;
+	private List<Ring> getStack(BoardStacks source) {
+		List<Ring> stack = null;
 		switch (source) {
-		case left: currentStack = this.getLeft(); break;
-		case middle: currentStack = this.getMiddle(); break;
-		case right: currentStack = this.getRight(); break;
+		case LEFT: stack = this.getLeft(); break;
+		case MIDDLE: stack = this.getMiddle(); break;
+		case RIGHT: stack = this.getRight(); break;
 		}
-		return currentStack;
+		return stack;
 	}
 	
 	private int getNumberOfRings() {
@@ -240,9 +243,9 @@ public class BoardGame {
 		}
 		
 		switch (initial) {
-			case left: return new BoardGame(numberOfRings, initialStack, new ArrayList<Ring>(), new ArrayList<Ring>(), ending);
-			case middle: return new BoardGame(numberOfRings,  new ArrayList<Ring>(), initialStack,new ArrayList<Ring>(), ending);
-			case right: return new BoardGame(numberOfRings, new ArrayList<Ring>(), new ArrayList<Ring>(), initialStack, ending);
+			case LEFT: return new BoardGame(numberOfRings, initialStack, new ArrayList<Ring>(), new ArrayList<Ring>(), ending);
+			case MIDDLE: return new BoardGame(numberOfRings,  new ArrayList<Ring>(), initialStack,new ArrayList<Ring>(), ending);
+			case RIGHT: return new BoardGame(numberOfRings, new ArrayList<Ring>(), new ArrayList<Ring>(), initialStack, ending);
 		}
 		return null;
 		

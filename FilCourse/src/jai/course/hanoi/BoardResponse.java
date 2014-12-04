@@ -2,6 +2,6 @@ package jai.course.hanoi;
 
 public enum BoardResponse {
 
-	ValidMode, IlegalMove, YouWin;
+	VALID_MOVE, ILLEGAL_MOVE, YOU_WIN;
 	
 }

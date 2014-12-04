@@ -1,4 +1,4 @@
-package jai.course.datastructures.ex01;
+package jai.course.datastructures.part2;
 
 import java.util.HashSet;
 import java.util.Set;
