@@ -15,14 +15,15 @@ public class ImageMapReaderCli {
 	public static void main(String[] args) {
 		
 		Path infile = Paths.get(args[0]);
+		System.out.println(infile.toAbsolutePath().toString());
 		Path outfile = Paths.get(args[1]);
-		
-		
+		Integer depth = Integer.valueOf(args[2]);
+				
 		try {
 
 			BufferedImage image = ImageIO.read(infile.toFile());
 			
-			String sb = readImageData(image);
+			String sb = readImageData(image, depth);
 			
 			exportData(outfile, sb);
 			
@@ -46,17 +47,23 @@ public class ImageMapReaderCli {
 		ps.close();
 	}
 
-	private static String readImageData(BufferedImage image) {
+	private static String readImageData(BufferedImage image, int depth) {
+		
 		
 		int width = image.getWidth();
-		
+		int height = image.getHeight();
 		StringBuilder sb = new StringBuilder();
 		
-		for (int i = 0; i< width ; i++) {
+		double pixWidth = Math.pow(2, depth);
+		
+		for (int i = 0; i< pixWidth ; i++) {
 			
-			for (int j = 0; j< width ; j++) {
+			for (int j = 0; j< pixWidth ; j++) {
 				
-				Color currentColor = new Color(image.getRGB(j, i));
+				int pi = (int) (Math.floor(i/pixWidth * width));
+				int pj = (int) (Math.floor(j/pixWidth * height));
+				
+				Color currentColor = new Color(image.getRGB(pj, pi));
 				
 				int currentColorR = currentColor.getRed();
 				int currentColorG = currentColor.getGreen();

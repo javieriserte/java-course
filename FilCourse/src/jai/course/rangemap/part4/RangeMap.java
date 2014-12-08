@@ -22,7 +22,7 @@ public interface RangeMap <K extends Comparable<K>,V> {
 	 * @param value
 	 * @return The returning value is the insertion was succesful.
 	 */
-	public V put(Range<K> key, V value) ;
+	public void put(Range<K> key, V value) ;
 	
 	/**
 	 * Retrieves the associated value with the range cooresponding to the given 

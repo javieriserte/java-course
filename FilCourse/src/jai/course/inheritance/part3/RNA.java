@@ -6,7 +6,7 @@ package jai.course.inheritance.part3;
  * @author Javier Iserte
  *
  */
-public class RNA extends NucAcid{
+public class RNA extends NucleicAcid{
 	
 	////////////////////////////////////////////////////////////////////////////
 	// Constructor

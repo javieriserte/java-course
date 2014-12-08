@@ -6,7 +6,7 @@ package jai.course.inheritance.part2;
  * @author Javier Iserte
  *
  */
-public abstract class NucAcid {
+public abstract class NucleicAcid {
 	
 	////////////////////////////////////////////////////////////////////////////
 	// Instance variables - Internal state
@@ -15,7 +15,7 @@ public abstract class NucAcid {
 
 	////////////////////////////////////////////////////////////////////////////
 	// Constructor
-	public NucAcid() {
+	public NucleicAcid() {
 		super();
 	}
 	////////////////////////////////////////////////////////////////////////////
@@ -23,7 +23,7 @@ public abstract class NucAcid {
 	
 	////////////////////////////////////////////////////////////////////////////
 	// Methods
-	abstract NucAcid seqComp();
+	abstract NucleicAcid seqComp();
 
 	int length() {
 		return this.getSequence().length();

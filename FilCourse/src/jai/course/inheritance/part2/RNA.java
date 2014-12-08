@@ -6,7 +6,7 @@ package jai.course.inheritance.part2;
  * @author Javier Iserte
  *
  */
-public class RNA extends NucAcid{
+public class RNA extends NucleicAcid{
 	
 	////////////////////////////////////////////////////////////////////////////
 	// Constructor
@@ -18,7 +18,7 @@ public class RNA extends NucAcid{
 	
 	////////////////////////////////////////////////////////////////////////////
 	// Methods
-	NucAcid seqComp() {
+	NucleicAcid seqComp() {
 		int length = this.length();
 		char[] newSeq = new char[length];
 		for (int i=length; i>0;i--) {
@@ -50,7 +50,7 @@ public class RNA extends NucAcid{
 			}
 			
 		}
-		NucAcid result = new RNA(String.valueOf(newSeq));
+		NucleicAcid result = new RNA(String.valueOf(newSeq));
 		return result;
 	}
 

@@ -1,4 +1,4 @@
-package jai.course.inheritance.part4;
+package jai.course.inheritance.part3;
 
 /**
  * This class represents any nucleic Acid in an abstract way.
@@ -6,7 +6,7 @@ package jai.course.inheritance.part4;
  * @author Javier Iserte
  *
  */
-public abstract class NucAcid {
+public abstract class NucleicAcid {
 	
 	////////////////////////////////////////////////////////////////////////////
 	// Instance variables - Internal state
@@ -15,7 +15,7 @@ public abstract class NucAcid {
 
 	////////////////////////////////////////////////////////////////////////////
 	// Constructor
-	public NucAcid() {
+	public NucleicAcid() {
 		super();
 	}
 	////////////////////////////////////////////////////////////////////////////
@@ -23,22 +23,21 @@ public abstract class NucAcid {
 	
 	////////////////////////////////////////////////////////////////////////////
 	// Methods
-	protected abstract char getCompCharForAdenine();
+	abstract char getCompCharForAdenine();
 	
-	public int length() {
+	int length() {
 		return this.getSequence().length();
 	}
 
-	protected void setSequence(String sequence) {
+	void setSequence(String sequence) {
 		this.sequence=sequence;
-		
 	}
 	
-	public String getSequence() {
+	String getSequence() {
 		return this.sequence;
 	}
 	
-	protected String getComplementarySequence() {
+	String getComplementarySequence() {
 		
 		int length = this.length();
 		char[] newSeq = new char[length];
@@ -74,6 +73,7 @@ public abstract class NucAcid {
 		return sequence;
 		
 	}
+
 	// End of Methods
 	////////////////////////////////////////////////////////////////////////////
 

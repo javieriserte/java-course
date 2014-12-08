@@ -41,13 +41,11 @@ public class ListRangeMap<K extends Comparable<K>,V> implements RangeMap<K , V> 
 	/**
 	 * Adds a new range to the map, with its corresponding return value.
 	 */
-	public V put(Range<K> key, V value) {
+	public void put(Range<K> key, V value) {
 		
 		this.getRanges().add(key);
 		
 		this.getValues().add(value);
-		
-		return value;
 		
 	}
 

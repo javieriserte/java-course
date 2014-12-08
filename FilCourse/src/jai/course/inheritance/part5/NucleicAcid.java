@@ -6,7 +6,7 @@ package jai.course.inheritance.part5;
  * @author Javier Iserte
  *
  */
-public abstract class NucAcid {
+public abstract class NucleicAcid {
 	
 	////////////////////////////////////////////////////////////////////////////
 	// Instance variables - Internal state
@@ -81,7 +81,7 @@ public abstract class NucAcid {
 	// Private and protected methods
 	protected abstract char getCompCharForAdenine() ;
 	
-	private String getComplementarySequence(NucAcid target) {
+	private String getComplementarySequence(NucleicAcid target) {
 		
 		int longitud = this.length();
 		char[] newSeq = new char[longitud];

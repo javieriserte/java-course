@@ -7,7 +7,7 @@ package jai.course.inheritance.part4;
  * @author Javier Iserte
  *
  */
-class DNA extends NucAcid {
+class DNA extends NucleicAcid {
 	
 	////////////////////////////////////////////////////////////////////////////
 	// Constructor

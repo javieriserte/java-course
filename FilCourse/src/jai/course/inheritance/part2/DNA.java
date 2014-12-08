@@ -7,7 +7,7 @@ package jai.course.inheritance.part2;
  * @author Javier Iserte
  *
  */
-class DNA extends NucAcid {
+class DNA extends NucleicAcid {
 	
 	////////////////////////////////////////////////////////////////////////////
 	// Constructor
@@ -20,7 +20,7 @@ class DNA extends NucAcid {
 	////////////////////////////////////////////////////////////////////////////
 	// Methods
 	@Override
-	NucAcid seqComp() {
+	NucleicAcid seqComp() {
 		int length = this.length();
 		char[] newSeq = new char[length];
 		for (int i=length; i>0;i--) {

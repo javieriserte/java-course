@@ -40,7 +40,7 @@ public class AvlRangeMap<K extends Comparable<K>,V> implements RangeMap<K,V>{
 	/**
 	 * Adds a new range to the map with its corresponding return value.
 	 */
-	public V put(Range<K> key, V value) {
+	public void put(Range<K> key, V value) {
 		root = put(root, key, value);
 		switch (balanceNumber(root)) {
 		case 1:
@@ -52,7 +52,7 @@ public class AvlRangeMap<K extends Comparable<K>,V> implements RangeMap<K,V>{
 		default:
 			break;
 		}
-		return value;
+
 	}
 	
 	/**
