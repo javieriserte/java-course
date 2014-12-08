@@ -1,4 +1,4 @@
-package jai.course.datastructures.ex01;
+package jai.course.datastructures.part1;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

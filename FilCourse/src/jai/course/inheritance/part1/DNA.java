@@ -1,4 +1,4 @@
-package jai.course.inheritance.ex01;
+package jai.course.inheritance.part1;
 
 /**
  * Class to represent a sequence of DNA.

@@ -29,19 +29,19 @@ public class RegionFactory {
 	}
 
 	public static Region fromReader(Reader fileReader) {
-		List<Terreno> terrainList = new ArrayList<>();
+		List<Terrain> terrainList = new ArrayList<>();
 		int c=-1;
 		
 		try {
 			while ((c=fileReader.read())>0) {
 			
-				Terreno current;
+				Terrain current;
 				switch ((char)c) {
 				case '1':
-					current=Terreno.Tierra;
+					current=Terrain.LAND;
 					break;
 				default:
-					current=Terreno.Agua;
+					current=Terrain.WATER;
 				
 				}
 				
@@ -70,7 +70,7 @@ public class RegionFactory {
 				
 				int listIndex = j + (i*terrainMapWidth);
 				
-				map[j][i] = new Unidad(terrainList.get(listIndex));
+				map[j][i] = new UnitCell(terrainList.get(listIndex));
 				
 			}
 			
@@ -90,7 +90,7 @@ public class RegionFactory {
 				
 				for (int j = 0; j < terrainMapWidth; j++)  {
 					
-					newMap[i][j] = new Bloque(
+					newMap[i][j] = new Block(
 							oldMap[2*i+1] [2*j], 
 							oldMap[2*i]   [2*j], 
 							oldMap[2*i+1] [2*j+1], 

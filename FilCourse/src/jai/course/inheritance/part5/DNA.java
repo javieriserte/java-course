@@ -1,4 +1,4 @@
-package jai.course.inheritance.ex05;
+package jai.course.inheritance.part5;
 
 
 /**

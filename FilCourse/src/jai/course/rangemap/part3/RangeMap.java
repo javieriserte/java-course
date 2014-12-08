@@ -1,4 +1,4 @@
-package jai.course.rangemap.ex04;
+package jai.course.rangemap.part3;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +15,12 @@ public class RangeMap <K extends Comparable<K>,V>{
 		
 	}
 	
-	public V put(Range<K> key, V value) {
+	public void put(Range<K> key, V value) {
 		
 		this.getRanges().add(key);
 		this.getValues().add(value);
 		
-		return value;
+		return ;
 		
 	}
 	

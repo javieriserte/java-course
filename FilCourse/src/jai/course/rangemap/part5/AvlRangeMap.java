@@ -1,4 +1,4 @@
-package jai.course.rangemap.ex06;
+package jai.course.rangemap.part5;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +19,7 @@ public class AvlRangeMap<K extends Comparable<K>,V> implements RangeMap<K,V>{
 	// Instance variables
 	private Set<V> values;
 	// A set of values, for quick retrieval of values if required.
-	private RangeMapNode<K, V> root;
+	private AvlRangeMapNode<K, V> root;
 	// The root a the AVL tree.
 	private LowerBoundRangeComparator<K> lowerBoundComparator;
 	// A Comparator to order Ranges in the AVL tree
@@ -59,7 +59,7 @@ public class AvlRangeMap<K extends Comparable<K>,V> implements RangeMap<K,V>{
 	 * Retrieves the value associated with a given key.
 	 */
 	public V get(K key) {
-		RangeMapNode<K,V> local = root;
+		AvlRangeMapNode<K,V> local = root;
 		while (local != null) {
 			if (local.getKey().inRange(key))
 				return local.getValue();
@@ -159,7 +159,7 @@ public class AvlRangeMap<K extends Comparable<K>,V> implements RangeMap<K,V>{
 
 	////////////////////////////////////////////////////////////////////////////
 	// Private methods
-	private int depth(RangeMapNode<K,V> node) {
+	private int depth(AvlRangeMapNode<K,V> node) {
 		if (node == null) {
 			return 0;
 		} else {
@@ -167,7 +167,7 @@ public class AvlRangeMap<K extends Comparable<K>,V> implements RangeMap<K,V>{
 		}
 	}
 	
-	private int balanceNumber(RangeMapNode<K,V> node) {
+	private int balanceNumber(AvlRangeMapNode<K,V> node) {
 		int L = depth(node.getLeft());
 		int R = depth(node.getRight());
 		if (L - R >= 2)
@@ -177,7 +177,7 @@ public class AvlRangeMap<K extends Comparable<K>,V> implements RangeMap<K,V>{
 		return 0;
 	}
 
-	private RangeMapNode<K,V> rotateLeft(RangeMapNode<K,V> node) {
+	private AvlRangeMapNode<K,V> rotateLeft(AvlRangeMapNode<K,V> node) {
 		/*
 		 *       q             p
 		 *      / \           / \
@@ -185,17 +185,17 @@ public class AvlRangeMap<K extends Comparable<K>,V> implements RangeMap<K,V>{
 		 *        / \       / \
 		 *       a   b     c   a
 		 */
-		RangeMapNode<K,V> q = node;
-		RangeMapNode<K,V> p = q.getRight();
-		RangeMapNode<K,V> c = q.getLeft();
-		RangeMapNode<K,V> a = p.getLeft();
-		RangeMapNode<K,V> b = p.getRight();
-		q = new RangeMapNode<K,V>(q.getKey(), q.getValue(), c, a);
-		p = new RangeMapNode<K,V>(p.getKey(), p.getValue(), q, b);
+		AvlRangeMapNode<K,V> q = node;
+		AvlRangeMapNode<K,V> p = q.getRight();
+		AvlRangeMapNode<K,V> c = q.getLeft();
+		AvlRangeMapNode<K,V> a = p.getLeft();
+		AvlRangeMapNode<K,V> b = p.getRight();
+		q = new AvlRangeMapNode<K,V>(q.getKey(), q.getValue(), c, a);
+		p = new AvlRangeMapNode<K,V>(p.getKey(), p.getValue(), q, b);
 		return p;
 	}
 
-	private RangeMapNode<K,V> rotateRight(RangeMapNode<K,V> node) {
+	private AvlRangeMapNode<K,V> rotateRight(AvlRangeMapNode<K,V> node) {
 		/*
 		 *       q             p
 		 *      / \           / \
@@ -203,13 +203,13 @@ public class AvlRangeMap<K extends Comparable<K>,V> implements RangeMap<K,V>{
 		 *    / \               / \
 		 *   a   b             b   c 
 		 */
-		RangeMapNode<K,V> q = node;
-		RangeMapNode<K,V> p = q.getLeft();
-		RangeMapNode<K,V> c = q.getRight();
-		RangeMapNode<K,V> a = p.getLeft();
-		RangeMapNode<K,V> b = p.getRight();
-		q = new RangeMapNode<K,V>(q.getKey(), q.getValue(), b, c);
-		p = new RangeMapNode<K,V>(p.getKey(), p.getValue(), a, q);
+		AvlRangeMapNode<K,V> q = node;
+		AvlRangeMapNode<K,V> p = q.getLeft();
+		AvlRangeMapNode<K,V> c = q.getRight();
+		AvlRangeMapNode<K,V> a = p.getLeft();
+		AvlRangeMapNode<K,V> b = p.getRight();
+		q = new AvlRangeMapNode<K,V>(q.getKey(), q.getValue(), b, c);
+		p = new AvlRangeMapNode<K,V>(p.getKey(), p.getValue(), a, q);
 		return p;
 	}
 	
@@ -222,21 +222,21 @@ public class AvlRangeMap<K extends Comparable<K>,V> implements RangeMap<K,V>{
 		this.lowerBoundComparator = lowerBoundComparator;
 	}
 	
-	private RangeMapNode<K,V> put(RangeMapNode<K,V> node, Range<K> key, V value) {
+	private AvlRangeMapNode<K,V> put(AvlRangeMapNode<K,V> node, Range<K> key, V value) {
 		
 		if (node == null) {
 			this.values.add(value);
-			return new RangeMapNode<K,V>(key,value);
+			return new AvlRangeMapNode<K,V>(key,value);
 		}
 
 		int lowerBoundComparisonResult = this.getLowerBoundComparator().compare(node.getKey(), key);
 		
 		if (lowerBoundComparisonResult > 0) {
 			// Insert the new node on the left branch. 
-			node = new RangeMapNode<K,V>(node.getKey(), node.getValue(), put(node.getLeft(), key, value), node.getRight());
+			node = new AvlRangeMapNode<K,V>(node.getKey(), node.getValue(), put(node.getLeft(), key, value), node.getRight());
 		} else if (lowerBoundComparisonResult < 0) {
 			// Insert the new node on the right branch. 
-			node = new RangeMapNode<K,V>(node.getKey(), node.getValue(), node.getLeft(), put( node.getRight(), key, value));
+			node = new AvlRangeMapNode<K,V>(node.getKey(), node.getValue(), node.getLeft(), put( node.getRight(), key, value));
 		} 
 		// After insert the new node, check and rebalance the current node if
 		// necessary.

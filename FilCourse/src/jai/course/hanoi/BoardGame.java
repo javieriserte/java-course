@@ -120,8 +120,6 @@ public class BoardGame {
 		
 		int stackSize = this.getStack(this.getEndingStack()).size();
 		int ringNumber = this.getNumberOfRings();
-		
-		System.out.println("stack size = "+stackSize+ "| number of rings in game = " + ringNumber + " | equals = " + (stackSize == ringNumber));
 		return (stackSize == ringNumber);
 		
 	}

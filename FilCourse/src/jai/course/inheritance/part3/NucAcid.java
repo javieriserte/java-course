@@ -1,4 +1,4 @@
-package jai.course.inheritance.ex03;
+package jai.course.inheritance.part3;
 
 /**
  * This class represents any nucleic Acid in an abstract way.

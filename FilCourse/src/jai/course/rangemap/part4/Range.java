@@ -1,4 +1,4 @@
-package jai.course.rangemap.ex05;
+package jai.course.rangemap.part4;
 
 /**
  * This class represents a Range of values.
@@ -56,25 +56,6 @@ public class Range<K extends Comparable<K>> {
 		return res;
 	}
 	
-	/**
-	 * Checks if a given value is in the range.
-	 * This method compares elements with
-	 * a custom Comparator object.
-	 * @param key
-	 * @return true if the key is between the upper and lower bounds of the Range.
-	 */
-//	public boolean inRangeComparedWith(K key, Comparator<K> comparator) {
-//				
-//		int checkUpper = comparator.compare(key,this.getUpperBound());
-//		int checkLower = comparator.compare(key,this.getLowerBound());
-//		
-//		boolean res = (((checkUpper < 0) || (checkUpper == 0 && upperIsClosed)) && 
-//				       ((checkLower > 0) || (checkLower == 0 && lowerIsClosed)));
-//		return res;
-//
-//		
-//	}
-
 	/**
 	 * 
 	 * Checks if the current range intersects with another range.

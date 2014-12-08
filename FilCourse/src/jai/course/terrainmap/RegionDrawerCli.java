@@ -43,7 +43,7 @@ public class RegionDrawerCli {
 			
 			System.out.println("Time spent counting elements image: " + (counting - afterExport));
 
-			region = region.simplificar();
+			region = region.simplify();
 
 			long simplify = System.currentTimeMillis();
 			

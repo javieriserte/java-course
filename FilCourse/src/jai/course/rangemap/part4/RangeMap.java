@@ -1,4 +1,4 @@
-package jai.course.rangemap.ex06;
+package jai.course.rangemap.part4;
 
 /**
  * Interface for range maps.

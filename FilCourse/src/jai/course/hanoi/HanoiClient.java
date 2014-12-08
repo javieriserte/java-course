@@ -19,7 +19,6 @@ public class HanoiClient {
 		
 		String currentLine = "";
 		
-		boolean end = false;
 		boolean start = true;
 		int nRings=3;
 		
@@ -36,7 +35,7 @@ public class HanoiClient {
 		
 		try {
 		
-			while (!end) {
+			while (true) {
 				
 				if (start) {
 					start =false;
@@ -51,7 +50,7 @@ public class HanoiClient {
 				Matcher endMatcher = endPattern.matcher(currentLine.toUpperCase());
 				if (endMatcher.matches()) {
 					System.out.println("Exit game!!");
-					break;
+					System.exit(0);
 				}
 				
 				Matcher restartMatcher = restartPattern.matcher(currentLine.toUpperCase());
@@ -60,6 +59,7 @@ public class HanoiClient {
 					if (rings!= null) {
 						nRings = Integer.valueOf(rings);
 					}
+					System.out.println("Starting a new game...");
 					start = true;
 					continue;
 				}
@@ -87,7 +87,7 @@ public class HanoiClient {
 					continue;
 				}
 				
-				System.out.println("Unregcognized command");
+				System.out.println("Unrecognized command");
 				
 				
 				

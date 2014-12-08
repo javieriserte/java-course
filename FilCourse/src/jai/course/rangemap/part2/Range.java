@@ -1,13 +1,10 @@
-package jai.course.rangemap.ex06;
-
-import java.util.Comparator;
+package jai.course.rangemap.part2;
 
 /**
  * This class represents a Range of values.
  * 
  * @author Javier
  *
- * @param <K>
  */
 public class Range<K extends Comparable<K>> {
 	
@@ -22,8 +19,11 @@ public class Range<K extends Comparable<K>> {
 	////////////////////////////////////////////////////////////////////////////
 	// Constructor
 	/**
-	 * Create a new Range object. It is required to define the lower and upper 
-	 * bounds values and the open/closed limits.
+	 * Create a new Range object. This implementation do not manages well
+	 * range with zero length. I.e. (1,1), [1,1) or (1,1].
+	 * The equals methods is used to test if two ranges overlaps. This 
+	 * Range is intended to be used only as part of RangeMap. Do not use it for
+	 * other work. 
 	 *  
 	 * @param upperBound
 	 * @param lowerBound
@@ -56,25 +56,6 @@ public class Range<K extends Comparable<K>> {
 		return res;
 	}
 	
-	/**
-	 * Checks if a given value is in the range.
-	 * This method compares elements with
-	 * a custom Comparator object.
-	 * @param key
-	 * @return true if the key is between the upper and lower bounds of the Range.
-	 */
-	public boolean inRangeComparedWith(K key, Comparator<K> comparator) {
-				
-		int checkUpper = comparator.compare(key,this.getUpperBound());
-		int checkLower = comparator.compare(key,this.getLowerBound());
-		
-		boolean res = (((checkUpper < 0) || (checkUpper == 0 && upperIsClosed)) && 
-				       ((checkLower > 0) || (checkLower == 0 && lowerIsClosed)));
-		return res;
-
-		
-	}
-
 	/**
 	 * 
 	 * Checks if the current range intersects with another range.
@@ -112,7 +93,7 @@ public class Range<K extends Comparable<K>> {
 		sb.append(this.isUpperClosed()?"]":")");
 		return sb.toString();
 	}
-	
+
 	// Getters and Setters
 	
 	public K getUpperBound() {
@@ -146,7 +127,7 @@ public class Range<K extends Comparable<K>> {
 	public void setLowerIsClosed(boolean lowerIsClosed) {
 		this.lowerIsClosed = lowerIsClosed;
 	}
-	// End of public interaface
+	// End of public interface
 	////////////////////////////////////////////////////////////////////////////
 	
 

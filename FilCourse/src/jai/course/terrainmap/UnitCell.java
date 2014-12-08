@@ -1,36 +1,36 @@
 package jai.course.terrainmap;
 
-public class Unidad extends Region {
+public class UnitCell extends Region {
 	///////////////////////////////
 	// Instance Variables
-	private Terreno terreno;
+	private Terrain terrain;
 
 	
 	
 	///////////////////////////////
 	// Constructor
-	public Unidad(Terreno terreno) {
+	public UnitCell(Terrain terrain) {
 		super();
-		this.setTerreno(terreno);
+		this.setTerreno(terrain);
 	}
 
 	///////////////////////////////
 	// Getters and Setters
-	public Terreno getTerreno() {
-		return terreno;
+	public Terrain getTerrain() {
+		return terrain;
 	}
 
-	public void setTerreno(Terreno terreno) {
-		if (terreno==Terreno.Mezclado) {
+	public void setTerreno(Terrain terreno) {
+		if (terreno==Terrain.MIXED) {
 			System.err.println("No se puede asignar terreno mezclado a una unidad");
 			System.exit(1);
 			
 		}
-		this.terreno = terreno;
+		this.terrain = terreno;
 	}
 
 	@Override
-	public Region simplificar() {
+	public Region simplify() {
 
 		return this;
 		

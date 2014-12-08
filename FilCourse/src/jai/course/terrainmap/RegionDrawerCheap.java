@@ -12,9 +12,9 @@ public class RegionDrawerCheap extends RegionDrawer {
 		
 		if (!region.isBlock()) {
 			
-			Terreno terrain = region.getTerreno();
+			Terrain terrain = region.getTerrain();
 			
-			Color color = terrain==Terreno.Tierra?Color.black:Color.white;
+			Color color = terrain==Terrain.LAND?Color.black:Color.white;
 			
 			Graphics2D g = (Graphics2D) image.getGraphics();
 			
@@ -28,14 +28,14 @@ public class RegionDrawerCheap extends RegionDrawer {
 			
 		} else {
 			
-			Bloque bloque = (Bloque) region;
+			Block bloque = (Block) region;
 			
 			int subRegionWidth = (int) width/2;
 			
-			this.draw(image, bloque.getArribaIzquierda(),subRegionWidth,off_set_x,off_set_y);
-			this.draw(image, bloque.getArribaDerecha()  ,subRegionWidth,off_set_x+subRegionWidth,off_set_y);
-			this.draw(image, bloque.getAbajoIzquierda() ,subRegionWidth,off_set_x,off_set_y+subRegionWidth);
-			this.draw(image, bloque.getAbajoDerecha()   ,subRegionWidth,off_set_x+subRegionWidth,off_set_y+subRegionWidth);
+			this.draw(image, bloque.getTopLeft(),subRegionWidth,off_set_x,off_set_y);
+			this.draw(image, bloque.getTopRight()  ,subRegionWidth,off_set_x+subRegionWidth,off_set_y);
+			this.draw(image, bloque.getBottomLeft() ,subRegionWidth,off_set_x,off_set_y+subRegionWidth);
+			this.draw(image, bloque.getBottomRight()   ,subRegionWidth,off_set_x+subRegionWidth,off_set_y+subRegionWidth);
 			
 		}
 		

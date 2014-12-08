@@ -1,18 +1,17 @@
-package jai.course.rangemap.ex04;
+package jai.course.rangemap.part1;
+
 
 /**
  * This class represents a Range of values.
  * 
  * @author Javier
- *
- * @param <K>
  */
-public class Range<K extends Comparable<K>> {
+public class Range {
 	
 	////////////////////////////////////////////////////////////////////////////
 	// Instance Variables
-	private K upperBound;
-	private K lowerBound;
+	private Double upperBound;
+	private Double lowerBound;
 	private boolean upperIsClosed;
 	private boolean lowerIsClosed;
 	////////////////////////////////////////////////////////////////////////////
@@ -28,7 +27,7 @@ public class Range<K extends Comparable<K>> {
 	 * @param upperIsClosed
 	 * @param lowerIsClosed
 	 */
-	public Range(K lowerBound, K upperBound, boolean lowerIsClosed, boolean upperIsClosed) {
+	public Range(Double lowerBound, Double upperBound, boolean lowerIsClosed, boolean upperIsClosed) {
 		this.setLowerBound(lowerBound);
 		this.setUpperBound(upperBound);
 		this.setUpperIsClosed(upperIsClosed);
@@ -44,34 +43,15 @@ public class Range<K extends Comparable<K>> {
 	 * @param key
 	 * @return true if the key is between the upper and lower bounds of the Range.
 	 */
-	public boolean inRange(K key) {
-
-		int checkUpper = key.compareTo(this.getUpperBound());
-		int checkLower = key.compareTo(this.getLowerBound());
+	public boolean contains(Double key) {
 			
-		boolean res = (((checkUpper < 0) || (checkUpper == 0 && upperIsClosed)) && 
-				       ((checkLower > 0) || (checkLower == 0 && lowerIsClosed)));
+		Double upper = this.getUpperBound();
+		Double lower = this.getLowerBound();
+		
+		boolean res = (((key < upper) || (key == upper && this.isUpperClosed())) && 
+				       ((key > lower) || (key == upper && this.isLowerClosed())));
 		return res;
 	}
-	
-//	/**
-//	 * Checks if a given value is in the range.
-//	 * This method compares elements with
-//	 * a custom Comparator object.
-//	 * @param key
-//	 * @return true if the key is between the upper and lower bounds of the Range.
-//	 */
-//	public boolean inRangeComparedWith(K key, Comparator<K> comparator) {
-//				
-//		int checkUpper = comparator.compare(key,this.getUpperBound());
-//		int checkLower = comparator.compare(key,this.getLowerBound());
-//		
-//		boolean res = (((checkUpper < 0) || (checkUpper == 0 && upperIsClosed)) && 
-//				       ((checkLower > 0) || (checkLower == 0 && lowerIsClosed)));
-//		return res;
-//
-//		
-//	}
 
 	/**
 	 * 
@@ -79,20 +59,19 @@ public class Range<K extends Comparable<K>> {
 	 * @param otherRange
 	 * @return
 	 */
-	public boolean intersects(Range<K> otherRange) {
+	public boolean intersects(Range otherRange) {
 		
-		K lower_r1 = this.getLowerBound();
-		K upper_r1 = this.getUpperBound();
+		Double lowerR1 = this.getLowerBound();
+		Double upperR1 = this.getUpperBound();
 		
-		K lower_r2 = otherRange.getLowerBound();
-		K upper_r2 = otherRange.getUpperBound();
+		Double lowerR2 = otherRange.getLowerBound();
+		Double upperR2 = otherRange.getUpperBound();
 		
-		int u_r2_vs_l_r1 = upper_r2.compareTo(lower_r1);
-		int u_r1_vs_l_r2 = upper_r1.compareTo(lower_r2);
-		
-		return ( u_r2_vs_l_r1>0 || (u_r2_vs_l_r1 == 0 && otherRange.isUpperClosed() && this.isLowerClosed())) && 
-			   ( u_r1_vs_l_r2>0 || (u_r1_vs_l_r2 == 0 && otherRange.isLowerClosed() && this.isUpperClosed()));
-		
+		boolean res = ( upperR2 > lowerR1 || (upperR2 == lowerR1 &&  otherRange.isUpperClosed() && this.isLowerClosed())) &&
+				      ( upperR1 > lowerR2 || (upperR1 == lowerR2 &&  otherRange.isUpperClosed() && this.isLowerClosed()));
+				
+		return res;
+
 	}
 	
 	/**
@@ -110,22 +89,22 @@ public class Range<K extends Comparable<K>> {
 		sb.append(this.isUpperClosed()?"]":")");
 		return sb.toString();
 	}
-
+	
 	// Getters and Setters
 	
-	public K getUpperBound() {
+	public Double getUpperBound() {
 		return upperBound;
 	}
 
-	public void setUpperBound(K upperBound) {
+	public void setUpperBound(Double upperBound) {
 		this.upperBound = upperBound;
 	}
 
-	public K getLowerBound() {
+	public Double getLowerBound() {
 		return lowerBound;
 	}
 
-	public void setLowerBound(K lowerBound) {
+	public void setLowerBound(Double lowerBound) {
 		this.lowerBound = lowerBound;
 	}
 
@@ -146,9 +125,5 @@ public class Range<K extends Comparable<K>> {
 	}
 	// End of public interface
 	////////////////////////////////////////////////////////////////////////////
-	
-
-	
-	
 
 }

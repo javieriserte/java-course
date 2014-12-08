@@ -1,18 +1,18 @@
-package jai.course.rangemap.ex02;
-
+package jai.course.rangemap.part3;
 
 /**
  * This class represents a Range of values.
  * 
  * @author Javier
  *
+ * @param <K>
  */
-public class Range {
+public class Range<K extends Comparable<K>> {
 	
 	////////////////////////////////////////////////////////////////////////////
 	// Instance Variables
-	private Number upperBound;
-	private Number lowerBound;
+	private K upperBound;
+	private K lowerBound;
 	private boolean upperIsClosed;
 	private boolean lowerIsClosed;
 	////////////////////////////////////////////////////////////////////////////
@@ -28,7 +28,7 @@ public class Range {
 	 * @param upperIsClosed
 	 * @param lowerIsClosed
 	 */
-	public Range(Number lowerBound, Number upperBound, boolean lowerIsClosed, boolean upperIsClosed) {
+	public Range(K lowerBound, K upperBound, boolean lowerIsClosed, boolean upperIsClosed) {
 		this.setLowerBound(lowerBound);
 		this.setUpperBound(upperBound);
 		this.setUpperIsClosed(upperIsClosed);
@@ -44,10 +44,10 @@ public class Range {
 	 * @param key
 	 * @return true if the key is between the upper and lower bounds of the Range.
 	 */
-	public boolean inRange(Number key) {
+	public boolean inRange(K key) {
 
-		int checkUpper = ((Double)key.doubleValue()).compareTo(this.getUpperBound().doubleValue());
-		int checkLower = ((Double)key.doubleValue()).compareTo(this.getLowerBound().doubleValue());
+		int checkUpper = key.compareTo(this.getUpperBound());
+		int checkLower = key.compareTo(this.getLowerBound());
 			
 		boolean res = (((checkUpper < 0) || (checkUpper == 0 && upperIsClosed)) && 
 				       ((checkLower > 0) || (checkLower == 0 && lowerIsClosed)));
@@ -60,22 +60,21 @@ public class Range {
 	 * @param otherRange
 	 * @return
 	 */
-	public boolean intersects(Range otherRange) {
+	public boolean intersects(Range<K> otherRange) {
 		
-		Number lower_r1 = this.getLowerBound();
-		Number upper_r1 = this.getUpperBound();
+		K lower_r1 = this.getLowerBound();
+		K upper_r1 = this.getUpperBound();
 		
-		Number lower_r2 = otherRange.getLowerBound();
-		Number upper_r2 = otherRange.getUpperBound();
+		K lower_r2 = otherRange.getLowerBound();
+		K upper_r2 = otherRange.getUpperBound();
 		
-		int u_r2_vs_l_r1 = ((Double)upper_r2.doubleValue()).compareTo((Double) lower_r1);
-		int u_r1_vs_l_r2 = ((Double)upper_r1.doubleValue()).compareTo((Double) lower_r2);
+		int u_r2_vs_l_r1 = upper_r2.compareTo(lower_r1);
+		int u_r1_vs_l_r2 = upper_r1.compareTo(lower_r2);
 		
 		return ( u_r2_vs_l_r1>0 || (u_r2_vs_l_r1 == 0 && otherRange.isUpperClosed() && this.isLowerClosed())) && 
 			   ( u_r1_vs_l_r2>0 || (u_r1_vs_l_r2 == 0 && otherRange.isLowerClosed() && this.isUpperClosed()));
 		
 	}
-	
 	
 	/**
 	 * 
@@ -92,22 +91,22 @@ public class Range {
 		sb.append(this.isUpperClosed()?"]":")");
 		return sb.toString();
 	}
-	
+
 	// Getters and Setters
 	
-	public Number getUpperBound() {
+	public K getUpperBound() {
 		return upperBound;
 	}
 
-	public void setUpperBound(Number upperBound) {
+	public void setUpperBound(K upperBound) {
 		this.upperBound = upperBound;
 	}
 
-	public Number getLowerBound() {
+	public K getLowerBound() {
 		return lowerBound;
 	}
 
-	public void setLowerBound(Number lowerBound) {
+	public void setLowerBound(K lowerBound) {
 		this.lowerBound = lowerBound;
 	}
 
@@ -128,5 +127,9 @@ public class Range {
 	}
 	// End of public interface
 	////////////////////////////////////////////////////////////////////////////
+	
+
+	
+	
 
 }

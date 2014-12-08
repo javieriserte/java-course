@@ -1,4 +1,4 @@
-package jai.course.inheritance.ex04;
+package jai.course.inheritance.part4;
 
 /**
  * Class to represent a sequence of RNA.

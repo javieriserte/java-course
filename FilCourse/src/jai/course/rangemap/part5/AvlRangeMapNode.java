@@ -1,4 +1,4 @@
-package jai.course.rangemap.ex06;
+package jai.course.rangemap.part5;
 
 import java.util.Set;
 
@@ -11,24 +11,24 @@ import java.util.Set;
  * @param <K>
  * @param <V>
  */
-public class RangeMapNode <K extends Comparable<K>,V>{
+public class AvlRangeMapNode <K extends Comparable<K>,V>{
 
 	/////////////////////////////////////////////////////////
 	// Instance variables
 	private Range<K> key;
-	private RangeMapNode<K, V> left;
-	private RangeMapNode<K, V> right;
+	private AvlRangeMapNode<K, V> left;
+	private AvlRangeMapNode<K, V> right;
 	private int depth;
 	private V value;
 	/////////////////////////////////////////////////////////
 	
 	////////////////////////////////////////////////////////////////////////////
 	// Constructors
-	public RangeMapNode(Range<K> key, V value) {
+	public AvlRangeMapNode(Range<K> key, V value) {
 		this.key=key;
 		this.value=value;
 	}
-	public RangeMapNode(Range<K> key, V value, RangeMapNode<K,V> left, RangeMapNode<K,V> right) {
+	public AvlRangeMapNode(Range<K> key, V value, AvlRangeMapNode<K,V> left, AvlRangeMapNode<K,V> right) {
 		this.key=key;
 		this.value=value;
 		this.left = left;
@@ -109,16 +109,16 @@ public class RangeMapNode <K extends Comparable<K>,V>{
 	public void setKey(Range<K> key) {
 		this.key = key;
 	}
-	public RangeMapNode<K,V> getLeft() {
+	public AvlRangeMapNode<K,V> getLeft() {
 		return left;
 	}
-	public void setLeft(RangeMapNode<K,V> left) {
+	public void setLeft(AvlRangeMapNode<K,V> left) {
 		this.left = left;
 	}
-	public RangeMapNode<K,V> getRight() {
+	public AvlRangeMapNode<K,V> getRight() {
 		return right;
 	}
-	public void setRight(RangeMapNode<K,V> right) {
+	public void setRight(AvlRangeMapNode<K,V> right) {
 		this.right = right;
 	}
 	public int getDepth() {

@@ -2,9 +2,9 @@ package jai.course.terrainmap;
 
 public abstract class Region {
 	
-	public abstract Terreno getTerreno();
+	public abstract Terrain getTerrain();
 	
-	public abstract Region simplificar();
+	public abstract Region simplify();
 	
 	public abstract int countElements();
 	

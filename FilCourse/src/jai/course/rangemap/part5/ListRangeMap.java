@@ -1,4 +1,4 @@
-package jai.course.rangemap.ex06;
+package jai.course.rangemap.part5;
 
 import java.util.ArrayList;
 import java.util.List;
